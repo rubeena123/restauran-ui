@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="OpenSourceTacos">
+  <head>
+    <meta charset="utf-8">
+    <title>Open Source Tacos</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="/main.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular-route.js" charset="utf-8"></script>
+    <script src="/module.js" charset="utf-8"></script>
+    <script src="/controller.restaurant.js" charset="utf-8"></script>
+    <script src="/controller.order.js" charset="utf-8"></script>
+    <script src="/factory.js" charset="utf-8"></script>
+
+  </head>
+
+  <body ng-controller="restaurant as restaurant">
+
+    <!-- header -->
+  <div class="jumbotron">
+    <div class="container">
+
+      <h1>{{restaurant.name}}</h1>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <nav class="navbar navbar-default">
+
+      <button type="button" class="pull-right btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span class="badge">{{restaurant.order.length}}</span>
+      </button>
+
+    </nav>
+  </div>
+
+  <!-- checkOut modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+          <h4 class="modal-title" id="myModalLabel">Taco Checkout:</h4>
+        </div>
+        <div ng-repeat="item in restaurant.order track by $index" class="modal-body">
+          <p>
+            {{item.name}} <strong>{{item.price | currency}}</strong>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <p>
+            total: {{restaurant.total | currency}}
+          </p>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" href="/">Purchase</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- menu -->
+  <div class="container">
+
+    <div class="row">
+      <div ng-click="restaurant.buy(item)" ng-repeat="item in restaurant.tacoStand.menu.plate " class="col-xs-12 col-md-5 entree">
+
+        <h3>{{item.name}}</h3>
+        <p>{{item.description}}</p>
+        <p>{{item.price | currency}}</p>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="container">
+    <div class="row text-center">
+      <p>click a button below if you have dietary restrictions</p>
+
+    </div>
+
+  </div>
+
+
+
+
+  </body>
+</html>
